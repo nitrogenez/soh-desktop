@@ -60,7 +60,7 @@ screen soh_main_menu_screen:
     imagemap:
         alpha False
         idle "mods/"+SOH_VARIANT+"/res/img/misc/menu/ui-main.png"
-        hover "mods/"+SOH_VARIANT+"/res/img/misc/menu/ui-main.png"
+        hover "mods/"+SOH_VARIANT+"/res/img/misc/menu/ui-main-hover.png"
 
         hotspot (38, 859, 428, 33) action (Hide("soh_main_menu_screen", dissolve), Jump("soh_chapter1_prologue"))
         hotspot (35, 910, 421, 41) action ShowMenu("soh_main_menu_about_screen")
