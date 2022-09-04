@@ -22,7 +22,11 @@ init 1111 python:
 
             super(CursorParallax, self).__init__()
 
-            self.child = renpy.displayable(child)
+            if isinstance(child, renpy.Displayable):
+                self.child = child
+            else:
+                self.child = renpy.displayable(child)
+
             self.x = 0
             self.y = 0
             self.actual_x = 0

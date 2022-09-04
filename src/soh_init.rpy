@@ -39,8 +39,20 @@ init 1:
 
     define SOH_START = "soh_main_menu"
 
-    $ config.developer = True
-    $ config.autoreload = True
+    python:
+        import socket
+        if socket.gethostname() == 'greatdeceiver':
+            config.developer = True
+            config.autoreload = True
+
+    $ config.mouse = {
+        'default': [(SOH_MISC+'/cursors/Vimix-cursors/src/default.png', 0, 0)],
+        'link':    [(SOH_MISC+'/cursors/Vimix-cursors/src/link.png', 0, 0)],
+        'help':    [(SOH_MISC+'/cursors/Vimix-cursors/src/help.png', 0, 0)],
+        'pointer': [(SOH_MISC+'/cursors/Vimix-cursors/src/pointer.png', 0, 0)],
+        'right':   [(SOH_MISC+'/cursors/Vimix-cursors/src/right_ptr.png', 0, 0)]
+    }
+    $ default_mouse = 'default'
 
     python:
         mods[SOH_START] = SOH_DISPLAYNAME
