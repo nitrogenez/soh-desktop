@@ -54,6 +54,11 @@ init 1:
     }
     $ default_mouse = 'default'
 
+    $ persistent.soh_config = {
+        'locale': 'ua',
+        'show-now-playing': False
+    }
+
     python:
         mods[SOH_START] = SOH_DISPLAYNAME
 

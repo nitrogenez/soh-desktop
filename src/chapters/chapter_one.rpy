@@ -201,4 +201,4 @@ label soh_chapter1_prologue:
     $ renpy.pause(4)
     scene bg black with dissolve2
 
-    return
+    jump soh_main_menu
