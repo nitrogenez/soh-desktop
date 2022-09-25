@@ -1,2 +1,12 @@
+# .gitignore for Shard Of Humanity
+
+# Ren'Py cache files
 *.rpyc
+*.rpymc
+*.rpa
+
+# Ren'Py cache dir
+cache/
+
+# Visual Studio Code dir
 .vscode

@@ -14,7 +14,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-label soh_chapter1_prologue:
+label soh_chapter1_prologue_RU:
 
     window hide
 

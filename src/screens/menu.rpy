@@ -18,6 +18,9 @@ init:
         alpha 0.0
         linear 6.0 alpha 1.0
 
+    transform half_opacity:
+        alpha 0.5
+
     image bg default_background = Solid("#101010")
 
     $ soh_menu_buttons = 'mods/soh-desktop/res/img/misc/menu/buttons/' + persistent.soh_config['locale'] + '/'
@@ -43,9 +46,6 @@ init:
                 os.system('xdg-open ' + config.basedir + '/mods/soh-desktop')
                 return
 
-        def refresh_screens():
-            renpy.reload_script()
-
 label soh_main_menu:
     window hide
 
@@ -53,7 +53,12 @@ label soh_main_menu:
     stop music fadeout 1.0
     stop ambience fadeout 1.0
     stop sound_loop fadeout 1.0
+
+    $ soh_Achievement(persistent.soh_locale['achievements']['ach-finnaly'], 'mythical')
+    $ renpy.pause(6, hard=True)
+
     play music faroff fadein 2
+
 
     $ renpy.start_predict_screen("soh_main_menu_screen")
     $ renpy.start_predict_screen("soh_main_menu_about_screen")
@@ -92,21 +97,24 @@ screen soh_main_menu_screen:
     modal True
     zorder 999
 
-    add CursorParallax("mods/soh-desktop/res/img/misc/menu/background.jpg", 10) at soh_dissolve
-    add CursorParallax("mods/soh-desktop/res/img/misc/menu/layer-one.png", 15) at soh_dissolve
-    add CursorParallax(soh_dust_particles1, 10)
-    add CursorParallax("mods/soh-desktop/res/img/misc/menu/layer-zero.png", 13) at soh_dissolve
+    add "mods/soh-desktop/res/img/misc/menu/background.jpg" at soh_dissolve
+    add "mods/soh-desktop/res/img/misc/menu/layer-one.png" at soh_dissolve
+    add soh_dust_particles1
+    add "mods/soh-desktop/res/img/misc/menu/layer-zero.png" at soh_dissolve
 
-    add CursorParallax(soh_dust_particles, 8)
+    add soh_dust_particles
 
     add "mods/soh-desktop/res/img/misc/menu/ui-overlay.png" at soh_dissolve
+
+    timer 1.0 action Function(soh_Toast, persistent.soh_locale['sysmsg']['recommend-to-use-keyboard'], 'alert')
 
     use soh_main_menu_screen_buttons
 
 screen soh_main_menu_screen_buttons:
     modal True tag menu
 
-    key "K_ESCAPE" action Play("sound", "mods/soh-desktop/res/sfx/ui/cancel.ogg")
+    key "K_ESCAPE" action [Play("sound", "mods/soh-desktop/res/sfx/ui/cancel.ogg"), ShowMenu("soh_main_menu_confirmation")]
+    key "x" action Jump('soh_devroom')
 
     vbox xalign 0.1 yalign 0.9:
         imagebutton auto soh_menu_buttons + "start_%s.png":
@@ -142,12 +150,12 @@ screen soh_main_menu_about_screen:
     modal True tag menu
     zorder 999
 
-    add CursorParallax("mods/soh-desktop/res/img/misc/menu/settings/background.jpg", 10)
-    add CursorParallax("mods/soh-desktop/res/img/misc/menu/settings/layer-one.png", 15)
-    add CursorParallax(soh_dust_particles1, 10)
-    add CursorParallax("mods/soh-desktop/res/img/misc/menu/settings/layer-zero.png", 13)
+    add "mods/soh-desktop/res/img/misc/menu/settings/background.jpg"
+    add "mods/soh-desktop/res/img/misc/menu/settings/layer-one.png"
+    add soh_dust_particles1
+    add "mods/soh-desktop/res/img/misc/menu/settings/layer-zero.png"
 
-    add CursorParallax(soh_dust_particles, 8)
+    add soh_dust_particles
 
     add "mods/soh-desktop/res/img/misc/menu/ui-overlay.png"
 
@@ -176,16 +184,24 @@ screen soh_main_menu_credits:
     key "K_ESCAPE" action [Play("sound", "mods/soh-desktop/res/sfx/ui/cancel.ogg"), Return()]
 
     add 'mods/soh-desktop/res/img/misc/menu/credits/background.jpg'
-    add CursorParallax('mods/soh-desktop/res/img/misc/menu/credits/alice.png', 20) at soh_dissolve
-    add CursorParallax(soh_dust_particles, 8)
-    add CursorParallax('mods/soh-desktop/res/img/misc/menu/credits/credits.png', 25) at soh_dissolve
+    add 'mods/soh-desktop/res/img/misc/menu/credits/alice.png' at soh_dissolve
+    add soh_dust_particles
+    add 'mods/soh-desktop/res/img/misc/menu/credits/credits.png' at soh_dissolve
     add 'mods/soh-desktop/res/img/misc/menu/credits/stopwar.png' at soh_dissolve
 
 screen soh_main_menu_confirmation:
     tag menu
     modal True
 
-    add 'mods/soh-desktop/res/img/misc/menu/credits/background.jpg'
+    add "mods/soh-desktop/res/img/misc/menu/background.jpg"
+    add "mods/soh-desktop/res/img/misc/menu/layer-one.png"
+    add soh_dust_particles1
+    add "mods/soh-desktop/res/img/misc/menu/layer-zero.png"
+
+    add soh_dust_particles
+
+    add Solid('#101010') at half_opacity
+    add 'mods/soh-desktop/res/img/misc/menu/credits/stopwar.png'
 
     key "K_ESCAPE" action [Play("sound", "mods/soh-desktop/res/sfx/ui/cancel.ogg"), Return()]
 

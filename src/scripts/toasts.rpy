@@ -1,11 +1,11 @@
 init:
-    default available_screens = ['soh_toast_1', 'soh_toast_2', 'soh_toast_3']
+    default available_screens = ['soh_toast_1', 'soh_toast_2', 'soh_toast_3', 'soh_toast_4', 'soh_toast_5', 'soh_toast_6', 'soh_toast_7']
     default delay_end = True
 
 init python:
 
     # android's toast implementation
-    def soh_toast(text='...', level='default'):
+    def soh_Toast(text='...', level='default'):
         global available_screens
         global delay_end
 
@@ -22,7 +22,7 @@ init python:
             else:
                 renpy.pause(delay=0.1)
 
-    def soh_toast_refresh(screen_name):
+    def soh_ToastRefresh(screen_name):
         renpy.hide_screen(screen_name)
         global available_screens
         available_screens.append(screen_name)
@@ -45,12 +45,10 @@ style soh_toast_text:
 transform soh_toast_t:
     xalign 0.5 yalign -0.2 alpha 0.0
 
-    linear 0.5 alpha 1.0
-
     # inertia effect
-    linear 0.2 yalign 0.1
-    linear 0.1 yalign 0.12
-    linear 0.05 yalign 0.08
+    ease 0.2 yalign 0.1 alpha 1.0
+    ease 0.1 yalign 0.12
+    ease 0.05 yalign 0.08
 
     pause 4
     linear 1.0 alpha 0.0
@@ -65,7 +63,7 @@ screen soh_toast_1(toast_text, level):
             style "soh_alerts"
         text toast_text style "soh_toast_text"
         at soh_toast_t
-    timer 6.0 action Function(soh_toast_refresh, "soh_toast_1")
+    timer 6.0 action Function(soh_ToastRefresh, "soh_toast_1")
     timer 0.5 action SetVariable('delay_end', True)
 
 
@@ -78,7 +76,7 @@ screen soh_toast_2(toast_text, level):
             style "soh_alerts"
         text toast_text style "soh_toast_text"
         at soh_toast_t
-    timer 6.0 action Function(soh_toast_refresh, "soh_toast_2")
+    timer 6.0 action Function(soh_ToastRefresh, "soh_toast_2")
     timer 0.5 action SetVariable('delay_end', True)
 
 screen soh_toast_3(toast_text, level):
@@ -90,5 +88,53 @@ screen soh_toast_3(toast_text, level):
             style "soh_alerts"
         text toast_text style "soh_toast_text"
         at soh_toast_t
-    timer 6.0 action Function(soh_toast_refresh, "soh_toast_3")
+    timer 6.0 action Function(soh_ToastRefresh, "soh_toast_3")
+    timer 0.5 action SetVariable('delay_end', True)
+
+screen soh_toast_4(toast_text, level):
+    zorder 999 modal False
+    frame:
+        if level != 'alert':
+            style "soh_toasts"
+        else:
+            style "soh_alerts"
+        text toast_text style "soh_toast_text"
+        at soh_toast_t
+    timer 6.0 action Function(soh_ToastRefresh, "soh_toast_4")
+    timer 0.5 action SetVariable('delay_end', True)
+
+screen soh_toast_5(toast_text, level):
+    zorder 999 modal False
+    frame:
+        if level != 'alert':
+            style "soh_toasts"
+        else:
+            style "soh_alerts"
+        text toast_text style "soh_toast_text"
+        at soh_toast_t
+    timer 6.0 action Function(soh_ToastRefresh, "soh_toast_5")
+    timer 0.5 action SetVariable('delay_end', True)
+
+screen soh_toast_6(toast_text, level):
+    zorder 999 modal False
+    frame:
+        if level != 'alert':
+            style "soh_toasts"
+        else:
+            style "soh_alerts"
+        text toast_text style "soh_toast_text"
+        at soh_toast_t
+    timer 6.0 action Function(soh_ToastRefresh, "soh_toast_6")
+    timer 0.5 action SetVariable('delay_end', True)
+
+screen soh_toast_7(toast_text, level):
+    zorder 999 modal False
+    frame:
+        if level != 'alert':
+            style "soh_toasts"
+        else:
+            style "soh_alerts"
+        text toast_text style "soh_toast_text"
+        at soh_toast_t
+    timer 6.0 action Function(soh_ToastRefresh, "soh_toast_7")
     timer 0.5 action SetVariable('delay_end', True)

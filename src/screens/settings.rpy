@@ -1,12 +1,12 @@
 screen soh_main_menu_settings:
     modal True tag menu
 
-    add CursorParallax("mods/soh-desktop/res/img/misc/menu/settings/background.jpg", 10)
-    add CursorParallax("mods/soh-desktop/res/img/misc/menu/settings/layer-one.png", 15)
-    add CursorParallax(soh_dust_particles1, 10)
-    add CursorParallax("mods/soh-desktop/res/img/misc/menu/settings/layer-zero.png", 13)
+    add "mods/soh-desktop/res/img/misc/menu/settings/background.jpg"
+    add "mods/soh-desktop/res/img/misc/menu/settings/layer-one.png"
+    add soh_dust_particles1
+    add "mods/soh-desktop/res/img/misc/menu/settings/layer-zero.png"
 
-    add CursorParallax(soh_dust_particles, 8)
+    add soh_dust_particles
 
     add "mods/soh-desktop/res/img/misc/menu/ui-overlay.png"
 
@@ -20,7 +20,7 @@ screen soh_mm_settings_page1:
         if persistent.soh_config['show-now-playing']:
             imagebutton auto soh_menu_buttons + "settings/nowplaying_%s.png":
                 action [ToggleDict(persistent.soh_config, 'show-now-playing', True, False),
-                    Function(soh_toast, 'ShowNowPlaying - False')]
+                    Function(soh_Toast, 'ShowNowPlaying - False')]
                 mouse 'pointer'
                 hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
                 activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
@@ -28,16 +28,10 @@ screen soh_mm_settings_page1:
         elif not persistent.soh_config['show-now-playing']:
             imagebutton auto soh_menu_buttons + "settings/nowplaying_disabled_%s.png":
                 action [ToggleDict(persistent.soh_config, 'show-now-playing', True, False),
-                    Function(soh_toast, 'ShowNowPlaying - True')]
+                    Function(soh_Toast, 'ShowNowPlaying - True')]
                 mouse 'pointer'
                 hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
                 activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
-
-        imagebutton auto soh_menu_buttons + "settings/sound_%s.png":
-            action NullAction()
-            mouse 'pointer'
-            hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
-            activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
 
         imagebutton auto soh_menu_buttons + "settings/moddir_%s.png":
             action Function(open_moddir)
@@ -45,54 +39,41 @@ screen soh_mm_settings_page1:
             hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
             activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
 
-        hbox:
-            imagebutton auto soh_menu_buttons_delocaled + "btn_prev_%s.png":
-                action NullAction()
-                mouse 'pointer'
-                hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
-                activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
-
-            imagebutton auto soh_menu_buttons_delocaled + "btn_next_%s.png":
-                action NullAction()
-                mouse 'pointer'
-                hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
-                activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
-
     vbox xalign 0.9 yalign 0.9:
-        if persistent.soh_config['locale'] != 'ua':
+        if persistent.soh_config['locale'] != 'uk_UA':
             imagebutton auto soh_menu_buttons_delocaled + "lc_ua_%s.png":
-                action [SetDict(persistent.soh_config, 'locale', 'ua'), Function(soh_toast, 'Мова буде змінена після перезаходження')]
+                action [Function(soh_LoadLocale, 'uk_UA'), Function(soh_Toast, persistent.soh_locale['sysmsg']['locale-change-notice'])]
                 mouse 'pointer'
                 hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
                 activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
-        elif persistent.soh_config['locale'] == 'ua':
+        elif persistent.soh_config['locale'] == 'uk_UA':
             imagebutton auto soh_menu_buttons_delocaled + "lc_ua_selected_%s.png":
                 action NullAction()
                 mouse 'default'
                 hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
                 activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
 
-        if persistent.soh_config['locale'] != 'en':
+        if persistent.soh_config['locale'] != 'en_US':
             imagebutton auto soh_menu_buttons_delocaled + "lc_en_%s.png":
-                action [SetDict(persistent.soh_config, 'locale', 'en'), Function(soh_toast, 'Language will be changed after reloading the game')]
+                action [Function(soh_LoadLocale, 'en_US'), Function(soh_Toast, persistent.soh_locale['sysmsg']['locale-change-notice'])]
                 mouse 'pointer'
                 hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
                 activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
-        elif persistent.soh_config['locale'] == 'en':
+        elif persistent.soh_config['locale'] == 'en_US':
             imagebutton auto soh_menu_buttons_delocaled + "lc_en_selected_%s.png":
                 action NullAction()
                 mouse 'default'
                 hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
                 activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
 
-        if persistent.soh_config['locale'] != 'ru':
+        if persistent.soh_config['locale'] != 'ru_RU':
             imagebutton auto soh_menu_buttons_delocaled + "lc_ru_%s.png":
-                action [SetDict(persistent.soh_config, 'locale', 'ru'), Function(soh_toast, 'Язык будет изменён после перезахода')]
+                action [Function(soh_LoadLocale, 'ru_RU'), Function(soh_Toast, persistent.soh_locale['sysmsg']['locale-change-notice'])]
                 mouse 'pointer'
                 hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
                 activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
 
-        elif persistent.soh_config['locale'] == 'ru':
+        elif persistent.soh_config['locale'] == 'ru_RU':
             imagebutton auto soh_menu_buttons_delocaled + "lc_ru_selected_%s.png":
                 action NullAction()
                 mouse 'pointer'

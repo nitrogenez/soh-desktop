@@ -1,0 +1,19 @@
+{
+    "modname": "Shard Of Humanity",
+    "sysmsg": {
+        "recommend-to-use-keyboard": "We recommend you to use keyboard to navigate",
+        "locale-change-notice": "UI elements, except Toasts, Achievements, etc., will be changed after game restart"
+    },
+    "achievements": {
+        "achievement-unlocked": "Achievement unlocked",
+        "rare-achievement-unlocked": "Rare achievement unlocked",
+        "mythical-achievement-unlocked": "Mythical achievement unlocked",
+
+        "ach-finnaly": "Finnaly, ero-game",
+        "ach-how-dare-you": "How dare you!?",
+        "ach-bite-the-dust": "Bite the dust!"
+    },
+    "minigames": {
+        "tutorial-hackthebox": "To hack the system you'll need to get the right command from your memory in time. Just click on it."
+    }
+}

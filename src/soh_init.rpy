@@ -39,31 +39,92 @@ init 1:
 
     define SOH_START = "soh_main_menu"
 
-    python:
-        import socket
-        if socket.gethostname() == 'greatdeceiver':
-            config.developer = True
-            config.autoreload = True
 
-    $ config.mouse = {
+init 1 python:
+    import socket
+    import os
+    import json
+
+    persistent.soh_locale = []      # locale texts
+    soh_lc_stream = None            # locale file stream 
+
+    persistent.soh_config = {
+        'locale': 'uk_UA',              # locale
+        'show-now-playing': False,      # now playing screen
+        'cursor-theme': 'Vimix-cursors' # in-game cursor theme (Vimix by default)
+    }
+    persistent.soh_achievements = {
+        "default": {
+            "ach-how-dare-you": False
+        },
+        "rare": {
+            "ach-bite-the-dust": False
+        },
+        "mythical": {
+            "ach-finnaly": False
+        }
+    }
+
+    config.mouse = {
         'default': [(SOH_MISC+'/cursors/Vimix-cursors/src/default.png', 0, 0)],
         'link':    [(SOH_MISC+'/cursors/Vimix-cursors/src/link.png', 0, 0)],
         'help':    [(SOH_MISC+'/cursors/Vimix-cursors/src/help.png', 0, 0)],
         'pointer': [(SOH_MISC+'/cursors/Vimix-cursors/src/pointer.png', 0, 0)],
         'right':   [(SOH_MISC+'/cursors/Vimix-cursors/src/right_ptr.png', 0, 0)]
     }
-    $ default_mouse = 'default'
+    default_mouse = 'default'
 
-    $ persistent.soh_config = {
-        'locale': 'ua',
-        'show-now-playing': False
-    }
+    if socket.gethostname() == 'neuralist-archlinux':
+        config.developer = True
+        config.autoreload = True
 
-    python:
-        mods[SOH_START] = SOH_DISPLAYNAME
+    def soh_LoadLocale(locale):
+        persistent.soh_config['locale'] = locale
 
-        # try to show mod thumbnail in menu
-        try:
-            modsImages[SOH_START] = (SOH_MISC + "mod_thumbnail_320x180.jpg", False, SOH_START)
-        except:
-            pass
+        soh_lc_stream = renpy.file('mods/soh-desktop/res/locale/' + locale + '.jsonc')
+        persistent.soh_locale = json.load(soh_lc_stream)
+
+    soh_mod_files = []
+
+    def soh_CheckSystemLocale():
+        if os.name == 'posix':
+            lang = os.getenv('LANG').replace('.UTF-8', '')
+            lc_all = os.getenv('LC_ALL').replace('.UTF-8', '')
+
+            if lang != None and lang != 'C':
+                if lang != lc_all: # LC_ALL is a priority
+                    soh_LoadLocale(lc_all)
+                else:
+                    soh_LoadLocale(lang)
+
+            elif lc_all != None and lc_all != 'C':
+                soh_LoadLocale(lang)
+
+        else:
+            import ctypes
+            import locale
+
+            windll = ctypes.windll.kernel32
+            soh_LoadLocale(locale.windows_locale[windll.GetUserDefaultUiLanguage()])
+
+        if persistent.soh_config['locale'] == None:
+            return 1
+        return 0
+
+
+    for i in renpy.list_files():
+        if i.startswith(SOH_ROOT):
+            soh_mod_files.append(i)
+
+    if soh_CheckSystemLocale() == 1:
+        persistent.soh_config['locale'] = 'uk_UA'
+
+    soh_LoadLocale(persistent.soh_config["locale"])
+
+    mods[SOH_START] = persistent.soh_locale['modname']
+
+    # try to show mod thumbnail in menu
+    try:
+        modsImages[SOH_START] = (SOH_MISC + "mod_thumbnail_320x180.jpg", False, SOH_START)
+    except:
+        pass
