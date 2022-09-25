@@ -110,7 +110,8 @@ label soh_chapter1_prologue_RU:
 
     window hide
     scene bg default_background with dissolve2
-    show image Text('{size=70}{font=mods/soh-desktop/res/fonts/Roboto-Light.ttf}Несколько часов спустя...{/font}{/size}') at truecenter with dissolve
+    show soh_title_text '{}'.format(persistent.soh_locale['ingame']['*-hours-later'] % (4)) at truecenter
+
     $ renpy.pause(4)
     scene bg semen_room with dissolve2
     window show
@@ -126,7 +127,7 @@ label soh_chapter1_prologue_RU:
     "Я пошла на кухню."
 
     window hide
-    scene bg soh_alice_kitchen with Dissolve(4)
+    scene bg default_background with Dissolve(4)
     $ renpy.pause(2)
     window show
 
@@ -172,33 +173,40 @@ label soh_chapter1_prologue_RU:
     window hide
     show soh_noise with dissolve2
     stop music fadeout 1
+    pause 1
+    play music controlisanillusion
     $ renpy.pause(3)
     window show
 
-    th "...Почему ты никогда не отвечаешь мне?"
+    th "{glitch=50.0}...Почему ты никогда не отвечаешь мне?{/glitch}"
 
     window hide
     $ renpy.pause(2)
     window show
 
-    th "Почему ты всегда молчишь?"
+    th "{glitch=50.0}Почему ты всегда молчишь?{/glitch}"
 
     window hide
     $ renpy.pause(2)
     window show
 
-    th "Я тебе неприятна?…"
+    th "{glitch=50.0}Я тебе неприятна?…{/glitch}"
 
     window hide
     $ renpy.pause(2)
     window show
 
-    th "Или ты пытаешься со мной заговорить, но не можешь?…{w} Может, я не настоящая для тебя ровно настолько, насколько настоящий для меня ты?"
-    th "...{w}Уверен ли ты в своём существовании?{w} Уверен ли ты в его полезности?{w} И уверен ли ты в своих убеждениях по поводу того, что делает тебя человеком?{w} Что делает тебя личностью?…"
-    th "...{w}Я реальна.{w} Вопрос в том: Реален ли ты, друг?…"
+    th "{glitch=50.0}Или ты пытаешься со мной заговорить, но не можешь?…{w} Может, я не настоящая для тебя ровно настолько...{/glitch}"
+    th "{glitch=50.0}Насколько настоящий для меня ты?{/glitch}"
+    th "{glitch=50.0}...{w}Уверен ли ты в своём существовании?{w} Уверен ли ты в его полезности?{w} И уверен ли ты в своих убеждениях по поводу того...{/glitch}"
+    th "{glitch=50.0}Что делает тебя человеком?{w} Что делает тебя личностью?…{/glitch}"
+    th "{glitch=50.0}...{w}Я реальна.{w} Вопрос в том: Реален ли ты, друг?…{/glitch}"
 
     window hide
     $ renpy.pause(4)
     scene bg black with dissolve2
+
+    $ soh_Achievement(persistent.soh_locale['achievements']['ach-demo'])
+    $ renpy.pause(4)
 
     jump soh_main_menu

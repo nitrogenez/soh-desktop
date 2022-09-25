@@ -18,6 +18,11 @@ init:
         alpha 0.0
         linear 6.0 alpha 1.0
 
+    transform soh_buttons_enter:
+        xalign 0.1 alpha 0.0 yalign 1.2
+
+        ease 1 alpha 1.0 yalign 0.9
+
     transform half_opacity:
         alpha 0.5
 
@@ -46,6 +51,8 @@ init:
                 os.system('xdg-open ' + config.basedir + '/mods/soh-desktop')
                 return
 
+# TODO: Implement message dialogs and confirm dialogs
+
 label soh_main_menu:
     window hide
 
@@ -54,8 +61,14 @@ label soh_main_menu:
     stop ambience fadeout 1.0
     stop sound_loop fadeout 1.0
 
-    $ soh_Achievement(persistent.soh_locale['achievements']['ach-finnaly'], 'mythical')
-    $ renpy.pause(6, hard=True)
+    $ soh_Toast(persistent.soh_locale['sysmsg']['demo-notice'], 'alert')
+    $ renpy.pause(4, hard=True)
+
+    if not persistent.soh_first_run:
+        $ soh_Achievement(persistent.soh_locale['achievements']['ach-finnaly'], 'mythical')
+        $ renpy.pause(6, hard=True)
+
+    $ persistent.soh_first_run = True
 
     play music faroff fadein 2
 
@@ -118,7 +131,7 @@ screen soh_main_menu_screen_buttons:
 
     vbox xalign 0.1 yalign 0.9:
         imagebutton auto soh_menu_buttons + "start_%s.png":
-            action [Hide("soh_main_menu_screen_buttons", dissolve), Hide("soh_main_menu_screen", Dissolve(8)), Jump("soh_chapter1_prologue")]
+            action [Hide("soh_main_menu_screen_buttons", dissolve), Hide("soh_main_menu_screen", Dissolve(8)), Jump("soh_chapter1_prologue_RU")]
             mouse 'pointer'
             hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
             activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
@@ -144,20 +157,21 @@ screen soh_main_menu_screen_buttons:
             hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
             activate_sound 'mods/soh-desktop/res/sfx/ui/dialog.oga'
             at soh_dissolve
+        at soh_buttons_enter
 
 
 screen soh_main_menu_about_screen:
     modal True tag menu
     zorder 999
 
-    add "mods/soh-desktop/res/img/misc/menu/settings/background.jpg"
-    add "mods/soh-desktop/res/img/misc/menu/settings/layer-one.png"
-    add soh_dust_particles1
-    add "mods/soh-desktop/res/img/misc/menu/settings/layer-zero.png"
+    add "mods/soh-desktop/res/img/misc/menu/settings/background.jpg" at soh_dissolve
+    add "mods/soh-desktop/res/img/misc/menu/settings/layer-one.png" at soh_dissolve
+    add soh_dust_particles1 at soh_dissolve
+    add "mods/soh-desktop/res/img/misc/menu/settings/layer-zero.png" at soh_dissolve
 
-    add soh_dust_particles
+    add soh_dust_particles at soh_dissolve
 
-    add "mods/soh-desktop/res/img/misc/menu/ui-overlay.png"
+    add "mods/soh-desktop/res/img/misc/menu/ui-overlay.png" at soh_dissolve
 
     key "K_ESCAPE" action [Play("sound", "mods/soh-desktop/res/sfx/ui/cancel.ogg"), Return()]
 
@@ -174,8 +188,6 @@ screen soh_main_menu_about_screen:
             hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
             activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
 
-# TODO: Update settings layout
-
 screen soh_main_menu_credits:
     tag menu
     modal True
@@ -190,14 +202,12 @@ screen soh_main_menu_credits:
     add 'mods/soh-desktop/res/img/misc/menu/credits/stopwar.png' at soh_dissolve
 
 screen soh_main_menu_confirmation:
-    tag menu
-    modal True
+    tag menu modal True
 
-    add "mods/soh-desktop/res/img/misc/menu/background.jpg"
-    add "mods/soh-desktop/res/img/misc/menu/layer-one.png"
+    add im.Grayscale(im.Blur("mods/soh-desktop/res/img/misc/menu/background.jpg", 2.5))
+    add im.Grayscale(im.Blur("mods/soh-desktop/res/img/misc/menu/layer-one.png", 2.7))
     add soh_dust_particles1
-    add "mods/soh-desktop/res/img/misc/menu/layer-zero.png"
-
+    add im.Grayscale(im.Blur("mods/soh-desktop/res/img/misc/menu/layer-zero.png", 2.9))
     add soh_dust_particles
 
     add Solid('#101010') at half_opacity

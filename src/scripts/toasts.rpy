@@ -15,6 +15,8 @@ init python:
                 sc_name = available_screens[0]
                 available_screens.remove(sc_name)
 
+                renpy.play('mods/soh-desktop/res/sfx/toast/toast-%s.oga' % (level), channel='sound')
+
                 renpy.show_screen(sc_name, text, level)
                 toasted = True
                 delay_end = False

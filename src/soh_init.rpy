@@ -39,6 +39,7 @@ init 1:
 
     define SOH_START = "soh_main_menu"
 
+    image soh_title_text = ParameterizedText(font='mods/soh-desktop/res/fonts/SF-Pro-Display-Black.otf', size=76)
 
 init 1 python:
     import socket
@@ -47,6 +48,8 @@ init 1 python:
 
     persistent.soh_locale = []      # locale texts
     soh_lc_stream = None            # locale file stream 
+
+    persistent.soh_first_run = False
 
     persistent.soh_config = {
         'locale': 'uk_UA',              # locale
@@ -83,6 +86,7 @@ init 1 python:
 
         soh_lc_stream = renpy.file('mods/soh-desktop/res/locale/' + locale + '.json')
         persistent.soh_locale = json.load(soh_lc_stream)
+        soh_lc_stream.close()
 
     soh_mod_files = []
 

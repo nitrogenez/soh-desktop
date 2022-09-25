@@ -20,3 +20,8 @@ init 2:
 
     $ soh_theme = SOH_MUSIC + '/soh-theme.ogg'
     $ faroff = SOH_MUSIC + '/4lienetic-far-off.ogg'
+
+    $ daemonsneverstop = SOH_MUSIC + '/daemonsneverstop.ogg'
+    $ infiniteloopofinsanity = SOH_MUSIC + '/infiniteloopofinsanity.ogg'
+    $ steelvalley = SOH_MUSIC + '/steel-valley.ogg'
+    $ controlisanillusion = SOH_MUSIC + '/control-is-an-illusion.ogg'
