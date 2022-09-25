@@ -81,7 +81,7 @@ init 1 python:
     def soh_LoadLocale(locale):
         persistent.soh_config['locale'] = locale
 
-        soh_lc_stream = renpy.file('mods/soh-desktop/res/locale/' + locale + '.jsonc')
+        soh_lc_stream = renpy.file('mods/soh-desktop/res/locale/' + locale + '.json')
         persistent.soh_locale = json.load(soh_lc_stream)
 
     soh_mod_files = []
