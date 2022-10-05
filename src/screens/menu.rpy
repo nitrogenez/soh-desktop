@@ -131,7 +131,7 @@ screen soh_main_menu_screen_buttons:
 
     vbox xalign 0.1 yalign 0.9:
         imagebutton auto soh_menu_buttons + "start_%s.png":
-            action [Hide("soh_main_menu_screen_buttons", dissolve), Hide("soh_main_menu_screen", Dissolve(8)), Jump("soh_chapter1_prologue_RU")]
+            action [Hide("soh_main_menu_screen_buttons", dissolve), Hide("soh_main_menu_screen", Dissolve(8)), Jump("soh_chapter1_prologue_%s" % (persistent.soh_config['locale']))]
             mouse 'pointer'
             hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
             activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'

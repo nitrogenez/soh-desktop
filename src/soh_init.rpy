@@ -93,16 +93,11 @@ init 1 python:
     def soh_CheckSystemLocale():
         if os.name == 'posix':
             lang = os.getenv('LANG').replace('.UTF-8', '')
-            lc_all = os.getenv('LC_ALL').replace('.UTF-8', '')
 
             if lang != None and lang != 'C':
-                if lang != lc_all: # LC_ALL is a priority
-                    soh_LoadLocale(lc_all)
-                else:
-                    soh_LoadLocale(lang)
-
-            elif lc_all != None and lc_all != 'C':
                 soh_LoadLocale(lang)
+            else:
+                soh_LoadLocale('uk_UA')
 
         else:
             import ctypes

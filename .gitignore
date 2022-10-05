@@ -10,3 +10,6 @@ cache/
 
 # Visual Studio Code dir
 .vscode
+
+# devdirs
+misc/
