@@ -12,3 +12,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+init 8:
+    $ lc = persistent.soh_locale
+    $ alx = Character(lc["characters"]["alx"])

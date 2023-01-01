@@ -2,7 +2,7 @@
     "modname": "Shard Of Humanity",
     "sysmsg": {
         "recommend-to-use-keyboard": "We recommend you to use keyboard to navigate",
-        "locale-change-notice": "UI elements, except Toasts, Achievements, etc., will be changed after game restart",
+        "locale-change-notice": "Some UI changes will be applied after the restart",
         "demo-notice": "This mod is still in development. It might contain bugs and leak functionality. Be careful and send us all the tracebacks."
     },
     "achievements": {
@@ -22,5 +22,41 @@
         "*-hours-later": "%s hours later...",
         "*-mins-later": "%s minutes later...",
         "*-days-later": "%s days later..."
+    },
+    "characters": {
+        "alx": "Alexey"
+    },
+    "menu": {
+        "start": "START GAME",
+        "extra": "EXTRA",
+        "settings": "SETTINGS",
+        "exit": "EXIT"
+    },
+    "menu-settings": {
+        "github": "GITHUB REPOSITORY",
+        "github.issue": "REPORT BUG",
+        "moddir": "OPEN MOD DIRECTORY",
+        "nowplaying": "TOGGLE \"NOW PLAYING\" PANEL",
+        "credits": "CREDITS"
+    },
+    "menu-exit": {
+        "system": "BACK TO SYSTEM",
+        "menu": "BACK TO MAIN MENU"
+    },
+    "about-screen": {
+        "devs": "DEVELOPERS",
+        "music": "MUSIC"
+    },
+    "actions": {
+        "confirm": "CONFIRM",
+        "decline": "DECLINE",
+        "next-page": "NEXT PAGE",
+        "previous-page": "PREVIOUS PAGE",
+        "back": "BACK"
+    },
+    "languages": {
+        "uk_UA": "UKRAINIAN",
+        "en_US": "ENGLISH",
+        "ru_RU": "RUSSIAN"
     }
 }

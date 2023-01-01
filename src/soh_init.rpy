@@ -56,28 +56,18 @@ init 1 python:
         'show-now-playing': False,      # now playing screen
         'cursor-theme': 'Vimix-cursors' # in-game cursor theme (Vimix by default)
     }
-    persistent.soh_achievements = {
-        "default": {
-            "ach-how-dare-you": False
-        },
-        "rare": {
-            "ach-bite-the-dust": False
-        },
-        "mythical": {
-            "ach-finnaly": False
-        }
-    }
+    persistent.soh_achievements = []
 
     config.mouse = {
-        'default': [(SOH_MISC+'/cursors/Vimix-cursors/src/default.png', 0, 0)],
-        'link':    [(SOH_MISC+'/cursors/Vimix-cursors/src/link.png', 0, 0)],
-        'help':    [(SOH_MISC+'/cursors/Vimix-cursors/src/help.png', 0, 0)],
-        'pointer': [(SOH_MISC+'/cursors/Vimix-cursors/src/pointer.png', 0, 0)],
-        'right':   [(SOH_MISC+'/cursors/Vimix-cursors/src/right_ptr.png', 0, 0)]
+        'default': [(SOH_MISC+'/cursors/%s/src/default.png' % (persistent.soh_config['cursor-theme']), 0, 0)],
+        'link':    [(SOH_MISC+'/cursors/%s/src/link.png' % (persistent.soh_config['cursor-theme']), 0, 0)],
+        'help':    [(SOH_MISC+'/cursors/%s/src/help.png' % (persistent.soh_config['cursor-theme']), 0, 0)],
+        'pointer': [(SOH_MISC+'/cursors/%s/src/pointer.png' % (persistent.soh_config['cursor-theme']), 0, 0)],
+        'right':   [(SOH_MISC+'/cursors/%s/src/right_ptr.png' % (persistent.soh_config['cursor-theme']), 0, 0)]
     }
     default_mouse = 'default'
 
-    if socket.gethostname() == 'neuralist-archlinux':
+    if socket.gethostname() == 'neuralist-arch':
         config.developer = True
         config.autoreload = True
 

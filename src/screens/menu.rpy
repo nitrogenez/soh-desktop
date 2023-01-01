@@ -18,11 +18,6 @@ init:
         alpha 0.0
         linear 6.0 alpha 1.0
 
-    transform soh_buttons_enter:
-        xalign 0.1 alpha 0.0 yalign 1.2
-
-        ease 1 alpha 1.0 yalign 0.9
-
     transform half_opacity:
         alpha 0.5
 
@@ -53,6 +48,16 @@ init:
 
 # TODO: Implement message dialogs and confirm dialogs
 
+style soh_textbutton_style is button:
+    background None
+
+style soh_textbutton_style_text is text:
+    size 28
+    color "#c0c0c0"
+    hover_color "#ffffff"
+    font "mods/soh-desktop/res/fonts/Roboto-Regular.ttf"
+    kerning 4
+
 label soh_main_menu:
     window hide
 
@@ -64,14 +69,12 @@ label soh_main_menu:
     $ soh_Toast(persistent.soh_locale['sysmsg']['demo-notice'], 'alert')
     $ renpy.pause(4, hard=True)
 
-    if not persistent.soh_first_run:
-        $ soh_Achievement(persistent.soh_locale['achievements']['ach-finnaly'], 'mythical')
-        $ renpy.pause(6, hard=True)
+    # if not persistent.soh_first_run:
+    $ renpy.pause(6, hard=True)
 
     $ persistent.soh_first_run = True
 
-    play music faroff fadein 2
-
+    play music between_two_points fadein 2
 
     $ renpy.start_predict_screen("soh_main_menu_screen")
     $ renpy.start_predict_screen("soh_main_menu_about_screen")
@@ -111,7 +114,6 @@ screen soh_main_menu_screen:
     zorder 999
 
     add "mods/soh-desktop/res/img/misc/menu/background.jpg" at soh_dissolve
-    add "mods/soh-desktop/res/img/misc/menu/layer-one.png" at soh_dissolve
     add soh_dust_particles1
     add "mods/soh-desktop/res/img/misc/menu/layer-zero.png" at soh_dissolve
 
@@ -129,36 +131,69 @@ screen soh_main_menu_screen_buttons:
     key "K_ESCAPE" action [Play("sound", "mods/soh-desktop/res/sfx/ui/cancel.ogg"), ShowMenu("soh_main_menu_confirmation")]
     key "x" action Jump('soh_devroom')
 
-    vbox xalign 0.1 yalign 0.9:
-        imagebutton auto soh_menu_buttons + "start_%s.png":
+    hbox pos (444, 510) at soh_dissolve:
+        spacing 18
+
+        imagebutton auto 'mods/soh-desktop/res/img/misc/menu/ui-icon-github-%s.png':
+            action OpenURL("https://github.com/nitrogenez/soh-dektop")
+            mouse 'link'
+
+            hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
+            activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
+
+        imagebutton auto 'mods/soh-desktop/res/img/misc/menu/ui-icon-telegram-%s.png':
+            action OpenURL("https://t.me/ngtm_uavn")
+            mouse 'link'
+
+            hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
+            activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
+
+        imagebutton auto 'mods/soh-desktop/res/img/misc/menu/ui-icon-question-%s.png':
+            action OpenURL("https://t.me/nitrogenez")
+            mouse 'link'
+
+            hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
+            activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
+
+
+    vbox pos (58, 688):
+        textbutton persistent.soh_locale["menu"]["start"]:
             action [Hide("soh_main_menu_screen_buttons", dissolve), Hide("soh_main_menu_screen", Dissolve(8)), Jump("soh_chapter1_prologue_%s" % (persistent.soh_config['locale']))]
             mouse 'pointer'
             hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
             activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
-            at soh_dissolve
 
-        imagebutton auto soh_menu_buttons + "settings_%s.png":
+            style "soh_textbutton_style"
+            text_style "soh_textbutton_style_text"
+
+        textbutton persistent.soh_locale["menu"]["settings"]:
             action ShowMenu("soh_main_menu_settings")
             mouse 'pointer'
             hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
             activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
-            at soh_dissolve
 
-        imagebutton auto soh_menu_buttons + "other_%s.png":
+            style "soh_textbutton_style"
+            text_style "soh_textbutton_style_text"
+
+        textbutton persistent.soh_locale["menu"]["extra"]:
             action ShowMenu("soh_main_menu_about_screen")
             mouse 'help'
             hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
             activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
-            at soh_dissolve
 
-        imagebutton auto soh_menu_buttons + "exit_%s.png":
+            style "soh_textbutton_style"
+            text_style "soh_textbutton_style_text"
+
+        textbutton persistent.soh_locale["menu"]["exit"]:
             action ShowMenu("soh_main_menu_confirmation")
             mouse 'pointer'
             hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
             activate_sound 'mods/soh-desktop/res/sfx/ui/dialog.oga'
-            at soh_dissolve
-        at soh_buttons_enter
+            
+            style "soh_textbutton_style"
+            text_style "soh_textbutton_style_text"
 
+        at soh_dissolve
 
 screen soh_main_menu_about_screen:
     modal True tag menu
@@ -175,18 +210,37 @@ screen soh_main_menu_about_screen:
 
     key "K_ESCAPE" action [Play("sound", "mods/soh-desktop/res/sfx/ui/cancel.ogg"), Return()]
 
-    vbox xalign 0.1 yalign 0.9:
-        imagebutton auto soh_menu_buttons + 'other/github_%s.png':
-            action OpenURL("https://github.com/nitrogenez/shard-of-humanity")
-            mouse 'link'
+    vbox pos (58, 688):
+        textbutton persistent.soh_locale["menu-settings"]["credits"]:
+            action ShowMenu("soh_main_menu_credits")
+            mouse 'pointer'
+
             hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
             activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
 
-        imagebutton auto soh_menu_buttons + 'other/credits_%s.png':
-            action ShowMenu("soh_main_menu_credits")
-            mouse 'pointer'
+            style "soh_textbutton_style"
+            text_style "soh_textbutton_style_text"
+
+        textbutton persistent.soh_locale["menu-settings"]["github"]:
+            action OpenURL("https://github.com/nitrogenez/soh-desktop")
+            mouse 'link'
+
             hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
             activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
+
+            style "soh_textbutton_style"
+            text_style "soh_textbutton_style_text"            
+
+style soh_text_about_title is text:
+    size 36
+    color "#ffffff"
+    font "mods/soh-desktop/res/fonts/Roboto-Black.ttf"
+
+
+style soh_text_about_paragraph is text:
+    size 28
+    color "#c0c0c0"
+    font "mods/soh-desktop/res/fonts/Roboto-Regular.ttf"
 
 screen soh_main_menu_credits:
     tag menu
@@ -196,10 +250,22 @@ screen soh_main_menu_credits:
     key "K_ESCAPE" action [Play("sound", "mods/soh-desktop/res/sfx/ui/cancel.ogg"), Return()]
 
     add 'mods/soh-desktop/res/img/misc/menu/credits/background.jpg'
-    add 'mods/soh-desktop/res/img/misc/menu/credits/alice.png' at soh_dissolve
-    add soh_dust_particles
-    add 'mods/soh-desktop/res/img/misc/menu/credits/credits.png' at soh_dissolve
     add 'mods/soh-desktop/res/img/misc/menu/credits/stopwar.png' at soh_dissolve
+
+    vbox align (0.2, 0.5):
+        text persistent.soh_locale["about-screen"]["devs"] style "soh_text_about_title"
+        text "nitrogenez@github.com" style "soh_text_about_paragraph"
+        text "vicsave@github.com" style "soh_text_about_paragraph"
+
+        text persistent.soh_locale["about-screen"]["music"] style "soh_text_about_title"
+        text "Lunevski" style "soh_text_about_paragraph"
+        text "Melis" style "soh_text_about_paragraph"
+        text "rekendo-ua" style "soh_text_about_paragraph"
+
+        at soh_dissolve
+
+    add soh_dust_particles
+
 
 screen soh_main_menu_confirmation:
     tag menu modal True
@@ -208,28 +274,39 @@ screen soh_main_menu_confirmation:
     add im.Grayscale(im.Blur("mods/soh-desktop/res/img/misc/menu/layer-one.png", 2.7))
     add soh_dust_particles1
     add im.Grayscale(im.Blur("mods/soh-desktop/res/img/misc/menu/layer-zero.png", 2.9))
-    add soh_dust_particles
 
     add Solid('#101010') at half_opacity
     add 'mods/soh-desktop/res/img/misc/menu/credits/stopwar.png'
+    add "mods/soh-desktop/res/img/misc/menu/ui-overlay.png"
 
     key "K_ESCAPE" action [Play("sound", "mods/soh-desktop/res/sfx/ui/cancel.ogg"), Return()]
 
-    vbox xalign 0.45 yalign 0.5:
-        imagebutton auto soh_menu_buttons + "quitconfirm/system_%s.png":
+    vbox pos (58, 688):
+        textbutton persistent.soh_locale["menu-exit"]["system"]:
             action Quit(confirm=False)
-            hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
-            activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
             mouse 'pointer'
 
-        imagebutton auto soh_menu_buttons + "quitconfirm/gamemenu_%s.png":
+            hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
+            activate_sound 'mods/soh-desktop/res/sfx/ui/cancel.ogg'
+
+            style "soh_textbutton_style" text_style "soh_textbutton_style_text"
+
+        textbutton persistent.soh_locale["menu-exit"]["menu"]:
             action Start("soh_main_menu_exit")
-            hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
-            activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
             mouse 'pointer'
 
-        imagebutton auto soh_menu_buttons + "quitconfirm/cancel_%s.png":
-            action Return()
             hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
-            activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
+            activate_sound 'mods/soh-desktop/res/sfx/ui/cancel.ogg'
+
+            style "soh_textbutton_style" text_style "soh_textbutton_style_text"
+
+        textbutton persistent.soh_locale["actions"]["back"]:
+            action Return()
             mouse 'pointer'
+
+            hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
+            activate_sound 'mods/soh-desktop/res/sfx/ui/cancel.ogg'
+
+            style "soh_textbutton_style" text_style "soh_textbutton_style_text"
+
+    add soh_dust_particles

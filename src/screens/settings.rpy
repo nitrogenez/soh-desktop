@@ -15,67 +15,95 @@ screen soh_main_menu_settings:
 screen soh_mm_settings_page1:
     modal True tag menu
 
-    vbox xalign 0.1 yalign 0.9:
-
-        if persistent.soh_config['show-now-playing']:
-            imagebutton auto soh_menu_buttons + "settings/nowplaying_%s.png":
-                action [ToggleDict(persistent.soh_config, 'show-now-playing', True, False),
-                    Function(soh_Toast, 'ShowNowPlaying - False')]
-                mouse 'pointer'
-                hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
-                activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
-
-        elif not persistent.soh_config['show-now-playing']:
-            imagebutton auto soh_menu_buttons + "settings/nowplaying_disabled_%s.png":
-                action [ToggleDict(persistent.soh_config, 'show-now-playing', True, False),
-                    Function(soh_Toast, 'ShowNowPlaying - True')]
-                mouse 'pointer'
-                hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
-                activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
-
-        imagebutton auto soh_menu_buttons + "settings/moddir_%s.png":
-            action Function(open_moddir)
+    vbox pos (58, 688):
+        textbutton persistent.soh_locale["menu-settings"]["nowplaying"]:
+            action ToggleDict(persistent.soh_config, 'show-now-playing', True, False)
             mouse 'pointer'
+
+            hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
+            activate_sound 'mods/soh-desktop/res/sfx/ui/cancel.ogg'
+
+            text_color '#808080'
+
+            if persistent.soh_config['show-now-playing']:
+                text_color '#6ae6d1'
+                activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
+
+            style "soh_textbutton_style" text_style "soh_textbutton_style_text"
+
+        textbutton persistent.soh_locale["menu-settings"]["moddir"]:
+            action Function(open_moddir)
+            mouse 'link'
+
             hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
             activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
 
-    vbox xalign 0.9 yalign 0.9:
-        if persistent.soh_config['locale'] != 'uk_UA':
-            imagebutton auto soh_menu_buttons_delocaled + "lc_ua_%s.png":
-                action [Function(soh_LoadLocale, 'uk_UA'), Function(soh_Toast, persistent.soh_locale['sysmsg']['locale-change-notice'])]
-                mouse 'pointer'
-                hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
-                activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
-        elif persistent.soh_config['locale'] == 'uk_UA':
-            imagebutton auto soh_menu_buttons_delocaled + "lc_ua_selected_%s.png":
-                action NullAction()
-                mouse 'default'
-                hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
-                activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
+            style "soh_textbutton_style" text_style "soh_textbutton_style_text"
 
-        if persistent.soh_config['locale'] != 'en_US':
-            imagebutton auto soh_menu_buttons_delocaled + "lc_en_%s.png":
-                action [Function(soh_LoadLocale, 'en_US'), Function(soh_Toast, persistent.soh_locale['sysmsg']['locale-change-notice'])]
-                mouse 'pointer'
-                hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
-                activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
-        elif persistent.soh_config['locale'] == 'en_US':
-            imagebutton auto soh_menu_buttons_delocaled + "lc_en_selected_%s.png":
-                action NullAction()
-                mouse 'default'
-                hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
-                activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
+        textbutton persistent.soh_locale["menu-settings"]["github.issue"]:
+            action OpenURL("https://github.com/nitrogenez/soh-desktop/issues")
+            mouse 'link'
 
-        if persistent.soh_config['locale'] != 'ru_RU':
-            imagebutton auto soh_menu_buttons_delocaled + "lc_ru_%s.png":
-                action [Function(soh_LoadLocale, 'ru_RU'), Function(soh_Toast, persistent.soh_locale['sysmsg']['locale-change-notice'])]
-                mouse 'pointer'
-                hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
-                activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
+            hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
+            activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
 
-        elif persistent.soh_config['locale'] == 'ru_RU':
-            imagebutton auto soh_menu_buttons_delocaled + "lc_ru_selected_%s.png":
-                action NullAction()
-                mouse 'pointer'
-                hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
-                activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
+            style "soh_textbutton_style"
+            text_style "soh_textbutton_style_text"
+
+        textbutton persistent.soh_locale["actions"]["back"]:
+            action Return()
+            mouse 'pointer'
+
+            hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
+            activate_sound 'mods/soh-desktop/res/sfx/ui/cancel.ogg'
+
+            style "soh_textbutton_style"
+            text_style "soh_textbutton_style_text"
+
+
+    vbox xalign 0.9 ypos 688:
+        textbutton persistent.soh_locale["languages"]["uk_UA"]:
+            action [
+                Function(soh_LoadLocale, "uk_UA"),
+                Function(soh_Toast, persistent.soh_locale['sysmsg']['locale-change-notice'])
+            ]
+            mouse 'pointer'
+
+            if persistent.soh_config['locale'] == "uk_UA":
+                text_color '#808080'
+
+            hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
+            activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
+
+            style "soh_textbutton_style" text_style "soh_textbutton_style_text"
+
+        textbutton persistent.soh_locale["languages"]["en_US"]:
+            action [
+                Function(soh_LoadLocale, "en_US"),
+                Function(soh_Toast, persistent.soh_locale['sysmsg']['locale-change-notice'])
+            ]
+            mouse 'pointer'
+
+            if persistent.soh_config['locale'] == "en_US":
+                text_color '#808080'
+
+            hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
+            activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
+
+            style "soh_textbutton_style" text_style "soh_textbutton_style_text"
+
+        textbutton persistent.soh_locale["languages"]["ru_RU"]:
+            action [
+                Function(soh_LoadLocale, "ru_RU"),
+                Function(soh_Toast, persistent.soh_locale['sysmsg']['locale-change-notice'])
+            ]
+            mouse 'pointer'
+
+            if persistent.soh_config['locale'] == "ru_RU":
+                text_color '#808080'
+
+            hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
+            activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
+
+            style "soh_textbutton_style" text_style "soh_textbutton_style_text"
+

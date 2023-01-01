@@ -25,3 +25,6 @@ init 2:
     $ infiniteloopofinsanity = SOH_MUSIC + '/infiniteloopofinsanity.ogg'
     $ steelvalley = SOH_MUSIC + '/steel-valley.ogg'
     $ controlisanillusion = SOH_MUSIC + '/control-is-an-illusion.ogg'
+
+    $ between_two_points = SOH_MUSIC + '/between-two-points.ogg'
+    $ between_two_points_ambient = SOH_MUSIC + '/between-two-points-ambient.ogg'
