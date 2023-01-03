@@ -45,6 +45,8 @@ init 1 python:
     import os
     import json
 
+    soh_FetchUpdates()
+
     persistent.soh_locale = []      # locale texts
     soh_lc_stream = None            # locale file stream 
 
