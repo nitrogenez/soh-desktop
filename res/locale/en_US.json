@@ -32,18 +32,25 @@
         "settings": "SETTINGS",
         "exit": "EXIT"
     },
-    "menu-settings": {
+    "menu.settings": {
+        "page.sound": "SOUND SETTINGS",
+        "page.developer": "DEVELOPER SETTINGS",
+        "page.toggles": "PARAMETER SETTINGS",
+        "page.language": "LANGUAGE SETTINGS",
         "github": "GITHUB REPOSITORY",
         "github.issue": "REPORT BUG",
         "moddir": "OPEN MOD DIRECTORY",
         "nowplaying": "TOGGLE \"NOW PLAYING\" PANEL",
-        "credits": "CREDITS"
+        "credits": "CREDITS",
+        "sfx-vol": "SOUND",
+        "mus-vol": "MUSIC",
+        "amb-vol": "AMBIENCE"
     },
-    "menu-exit": {
+    "menu.exit": {
         "system": "BACK TO SYSTEM",
         "menu": "BACK TO MAIN MENU"
     },
-    "about-screen": {
+    "menu.about": {
         "devs": "DEVELOPERS",
         "music": "MUSIC"
     },

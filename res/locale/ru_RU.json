@@ -3,7 +3,7 @@
     "sysmsg": {
         "recommend-to-use-keyboard": "Рекомендуем Вам использовать клавиатуру для навигации в меню",
         "locale-change-notice": "Некоторые изменения интерфейса будут применены после перезапуска",
-        "demo-notice": "Модификация все еще находится в разработке. Она может содержать баги и недоработки. Будьте осторожны и отправляйте нам трейсбеки."
+        "demo-notice": "Модификация все еще находится в разработке. Она может содержать баги и недоработки. Будьте осторожны и отправляйте нам отчёты об ошибках."
     },
     "achievements": {
         "default-achievement-unlocked": "Достижение разблокировано",
@@ -32,18 +32,25 @@
         "settings": "НАСТРОЙКИ",
         "exit": "ВЫХОД"
     },
-    "menu-settings": {
+    "menu.settings": {
+        "page.sound": "SOUND SETTINGS",
+        "page.developer": "DEVELOPER SETTINGS",
+        "page.toggles": "PARAMETER SETTINGS",
+        "page.language": "LANGUAGE SETTINGS",
         "github": "РЕПОЗИТОРИЙ GITHUB",
         "github.issue": "ОТЧЕТ ОБ ОШИБКЕ",
         "moddir": "ОТКРЫТЬ ДИРЕКТОРИЮ МОДА",
         "nowplaying": "ВКЛ/ВЫКЛ ПАНЕЛЬ \"СЕЙЧАС ИГРАЕТ\"",
-        "credits": "АВТОРЫ"
+        "credits": "АВТОРЫ",
+        "sfx-vol": "ЗВУК",
+        "mus-vol": "МУЗЫКА",
+        "amb-vol": "ЭМБИЕНТ"
     },
-    "menu-exit": {
+    "menu.exit": {
         "system": "BACK TO SYSTEM",
         "menu": "BACK TO MAIN MENU"
     },
-    "about-screen": {
+    "menu.about": {
         "devs": "РАЗРАБОТЧИКИ",
         "music": "МУЗЫКА"
     },

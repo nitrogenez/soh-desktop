@@ -14,7 +14,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-label soh_chapter1_prologue_uk_UA:
+label soh_chapter1_prologue_en_US:
 
     window hide
 
@@ -28,12 +28,11 @@ label soh_chapter1_prologue_uk_UA:
     show soh_noise with dissolve2
     $ renpy.pause(6)
 
-    # "Не кожна людина зможе уникнути появи страху білого листа.{w} Це дуже сильний страх, який може не тільки відвести людину у режим прокрастинації, але також вбити."
-    # "Колись я теж була наївною, задерикуватою дівчинкою. Думала, що “ось зараз закінчу школу і буду жити гарно”, але у результаті моє життя вирішило зіграти зі мною жарт.{w} Злий жарт."
-    # "Десь у 14 років я почала цікавитись технологіями...{w} Адже це так круто.{w} Ти можеш буквально спілкуватись зі своїм комп'ютером, й прямо казати йому, що робити..."
-    # "Я почала вчитись прогамувати.{w} Читала різні книги за структурами мов, за їх парадигмами, за тим, як вони працюють та чим відрізняються...{w} Але після цього в мене з'явились сумніви щодо того, чи хочу я займатись цим усе своє життя..."
-
-    "Not every person can beat the blank page anxiety."
+    "Not every person can beat the blank page anxiety.{w} This is a strong anxiety, that can not only make people procrastinate, but also kill."
+    "Sometime I also was naive, naughty girl. I thought, that “Now I'll end up with school and will live good”, but in the end my life decided to play a joke with me.{w} Evil joke."
+    "Like... When I was 14 years old, I\'ve started to dive into tech...{w} Because that\'s so cool. You are able to literally talk to your computer, and say it what to do..."
+    "I\'ve started to learn programming.{w} I've read various books about programming languages structures, it\'s paradigms, how do they work and differ...{w} But after that...
+    I\'ve started to be suspicious about what I want to do in my whole life..."
 
     window hide
     $ renpy.pause(2)

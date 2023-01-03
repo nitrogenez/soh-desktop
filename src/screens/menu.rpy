@@ -23,9 +23,6 @@ init:
 
     image bg default_background = Solid("#101010")
 
-    $ soh_menu_buttons = 'mods/soh-desktop/res/img/misc/menu/buttons/' + persistent.soh_config['locale'] + '/'
-    $ soh_menu_buttons_delocaled = 'mods/soh-desktop/res/img/misc/menu/buttons/'
-
     $ soh_dust_particles = SnowBlossom("mods/soh-desktop/res/img/misc/menu/dust_particle.png",
         count=10, fast=False,
         xspeed=(20, 50), yspeed=(100, -200), start=0, horizontal=False)
@@ -51,6 +48,10 @@ init:
 style soh_textbutton_style is button:
     background None
 
+    hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
+    activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
+
+
 style soh_textbutton_style_text is text:
     size 28
     color "#c0c0c0"
@@ -74,7 +75,7 @@ label soh_main_menu:
 
     $ persistent.soh_first_run = True
 
-    play music between_two_points fadein 2
+    play music between_two_points_ambient fadein 2
 
     $ renpy.start_predict_screen("soh_main_menu_screen")
     $ renpy.start_predict_screen("soh_main_menu_about_screen")
@@ -116,7 +117,6 @@ screen soh_main_menu_screen:
     add "mods/soh-desktop/res/img/misc/menu/background.jpg" at soh_dissolve
     add soh_dust_particles1
     add "mods/soh-desktop/res/img/misc/menu/layer-zero.png" at soh_dissolve
-
     add soh_dust_particles
 
     add "mods/soh-desktop/res/img/misc/menu/ui-overlay.png" at soh_dissolve
@@ -211,25 +211,32 @@ screen soh_main_menu_about_screen:
     key "K_ESCAPE" action [Play("sound", "mods/soh-desktop/res/sfx/ui/cancel.ogg"), Return()]
 
     vbox pos (58, 688):
-        textbutton persistent.soh_locale["menu-settings"]["credits"]:
+        textbutton persistent.soh_locale["menu.settings"]["credits"]:
             action ShowMenu("soh_main_menu_credits")
             mouse 'pointer'
 
             hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
             activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
 
-            style "soh_textbutton_style"
-            text_style "soh_textbutton_style_text"
+            style "soh_textbutton_style" text_style "soh_textbutton_style_text"
 
-        textbutton persistent.soh_locale["menu-settings"]["github"]:
+        textbutton persistent.soh_locale["menu.settings"]["github"]:
             action OpenURL("https://github.com/nitrogenez/soh-desktop")
             mouse 'link'
 
             hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
             activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
 
-            style "soh_textbutton_style"
-            text_style "soh_textbutton_style_text"            
+            style "soh_textbutton_style" text_style "soh_textbutton_style_text"           
+
+        textbutton persistent.soh_locale["actions"]["back"]:
+            action Return()
+            mouse 'pointer'
+
+            hover_sound 'mods/soh-desktop/res/sfx/ui/selected-button.ogg'
+            activate_sound 'mods/soh-desktop/res/sfx/ui/pressed-button.ogg'
+
+            style "soh_textbutton_style" text_style "soh_textbutton_style_text"           
 
 style soh_text_about_title is text:
     size 36
@@ -253,11 +260,11 @@ screen soh_main_menu_credits:
     add 'mods/soh-desktop/res/img/misc/menu/credits/stopwar.png' at soh_dissolve
 
     vbox align (0.2, 0.5):
-        text persistent.soh_locale["about-screen"]["devs"] style "soh_text_about_title"
+        text persistent.soh_locale["menu.about"]["devs"] style "soh_text_about_title"
         text "nitrogenez@github.com" style "soh_text_about_paragraph"
         text "vicsave@github.com" style "soh_text_about_paragraph"
 
-        text persistent.soh_locale["about-screen"]["music"] style "soh_text_about_title"
+        text persistent.soh_locale["menu.about"]["music"] style "soh_text_about_title"
         text "Lunevski" style "soh_text_about_paragraph"
         text "Melis" style "soh_text_about_paragraph"
         text "rekendo-ua" style "soh_text_about_paragraph"
@@ -282,7 +289,7 @@ screen soh_main_menu_confirmation:
     key "K_ESCAPE" action [Play("sound", "mods/soh-desktop/res/sfx/ui/cancel.ogg"), Return()]
 
     vbox pos (58, 688):
-        textbutton persistent.soh_locale["menu-exit"]["system"]:
+        textbutton persistent.soh_locale["menu.exit"]["system"]:
             action Quit(confirm=False)
             mouse 'pointer'
 
@@ -291,7 +298,7 @@ screen soh_main_menu_confirmation:
 
             style "soh_textbutton_style" text_style "soh_textbutton_style_text"
 
-        textbutton persistent.soh_locale["menu-exit"]["menu"]:
+        textbutton persistent.soh_locale["menu.exit"]["menu"]:
             action Start("soh_main_menu_exit")
             mouse 'pointer'
 

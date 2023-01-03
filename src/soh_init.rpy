@@ -15,29 +15,28 @@
 
 
 init 1:
-    define SOH_VARIANT = "soh-desktop"  # initialize mod variant
-    define SOH_VERSION = SOH_VARIANT + "-0.0.1"
-    define SOH_DISPLAYNAME = u"Осколок человечности"
+    $ SOH_VARIANT = "soh-desktop"  # initialize mod variant
+    $ SOH_DISPLAYNAME = u"Осколок человечности"
 
-    # define essential directories
-    define SOH_ROOT = "mods/" + SOH_VARIANT
-    define SOH_RESOURCES = "mods/" + SOH_VARIANT + "/res"
+    # $ essential directories
+    $ SOH_ROOT = "mods/soh-desktop"
+    $ SOH_RESOURCES = "mods/soh-desktop/res"
 
-    # define resources directories
-    define SOH_IMAGES = SOH_RESOURCES + "/img"
-    define SOH_BG = SOH_IMAGES + "/bg"
-    define SOH_CG = SOH_IMAGES + "/cg"
-    define SOH_ANIM = SOH_IMAGES + "/anim"
-    define SOH_SPR = SOH_IMAGES + "/sprites"
-    define SOH_MISC = SOH_IMAGES + "/misc"
+    # $ resources directories
+    $ SOH_IMAGES = SOH_RESOURCES + "/img"
+    $ SOH_BG = SOH_IMAGES + "/bg"
+    $ SOH_CG = SOH_IMAGES + "/cg"
+    $ SOH_ANIM = SOH_IMAGES + "/anim"
+    $ SOH_SPR = SOH_IMAGES + "/sprites"
+    $ SOH_MISC = SOH_IMAGES + "/misc"
     
-    define SOH_FONTS = SOH_RESOURCES + "/fonts"
+    $ SOH_FONTS = SOH_RESOURCES + "/fonts"
 
-    define SOH_MUSIC = SOH_RESOURCES + "/music"
-    define SOH_SFX = SOH_RESOURCES + "/sfx"
-    define SOH_AMBIENCE = SOH_RESOURCES + "/ambience"
+    $ SOH_MUSIC = SOH_RESOURCES + "/music"
+    $ SOH_SFX = SOH_RESOURCES + "/sfx"
+    $ SOH_AMBIENCE = SOH_RESOURCES + "/ambience"
 
-    define SOH_START = "soh_main_menu"
+    $ SOH_START = "soh_main_menu"
 
     image soh_title_text = ParameterizedText(font='mods/soh-desktop/res/fonts/SF-Pro-Display-Black.otf', size=76)
 
@@ -52,7 +51,7 @@ init 1 python:
     persistent.soh_first_run = False
 
     persistent.soh_config = {
-        'locale': 'uk_UA',              # locale
+        'locale': 'en_US',              # locale
         'show-now-playing': False,      # now playing screen
         'cursor-theme': 'Vimix-cursors' # in-game cursor theme (Vimix by default)
     }
@@ -67,9 +66,11 @@ init 1 python:
     }
     default_mouse = 'default'
 
+
     if socket.gethostname() == 'neuralist-arch':
         config.developer = True
         config.autoreload = True
+
 
     def soh_LoadLocale(locale):
         persistent.soh_config['locale'] = locale
@@ -78,16 +79,20 @@ init 1 python:
         persistent.soh_locale = json.load(soh_lc_stream)
         soh_lc_stream.close()
 
-    soh_mod_files = []
+        mods[SOH_START] = persistent.soh_locale['modname']
+
 
     def soh_CheckSystemLocale():
-        if os.name == 'posix':
+        if os.name == 'posix' or os.name == 'darwin':
             lang = os.getenv('LANG').replace('.UTF-8', '')
 
             if lang != None and lang != 'C':
-                soh_LoadLocale(lang)
+                try:
+                    soh_LoadLocale(lang)
+                except:
+                    soh_LoadLocale('en_US')
             else:
-                soh_LoadLocale('uk_UA')
+                soh_LoadLocale('en_US')
 
         else:
             import ctypes
@@ -100,17 +105,10 @@ init 1 python:
             return 1
         return 0
 
-
-    for i in renpy.list_files():
-        if i.startswith(SOH_ROOT):
-            soh_mod_files.append(i)
-
     if soh_CheckSystemLocale() == 1:
         persistent.soh_config['locale'] = 'uk_UA'
 
     soh_LoadLocale(persistent.soh_config["locale"])
-
-    mods[SOH_START] = persistent.soh_locale['modname']
 
     # try to show mod thumbnail in menu
     try:
